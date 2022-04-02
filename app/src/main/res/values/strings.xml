@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">A.B.T.S</string>
+
+    <string name="url">http:192.168.1.105:8080/chatbot/chatbot.php</string>
+    <!--    http://2486-80-240-202-21.ngrok.io-->
+    <!--    192.168.1.106-->
+    <!--    http://192.168.1.106:8080-->
+    <!--<string name="url">http://192.168.43.78/karimax_milk/karimax_milk.php</string>-->
+    <string name="smsurl">http://Lecture CellularCommunications.ppt/karimax_milk/mobiteck.php</string>
+    <!--    <string name="database">cvtautodb</string>-->
+    <string name="database">chatbot</string>
+    <string name="title_activity_registration">registration</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_menuactivity">menuactivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
