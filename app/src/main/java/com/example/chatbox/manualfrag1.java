@@ -8,6 +8,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -31,7 +34,9 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,7 +44,7 @@ import java.util.Map;
  * Use the {@link manualfrag1#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class manualfrag1 extends Fragment {
+public class manualfrag1 extends Fragment  {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +64,9 @@ public class manualfrag1 extends Fragment {
 
     String[] isst={ "SLS issue", "SiS issue", "Submission issues(Assignments,projects)", "Online classes issues", "Log in to University site issue","other"};
     String[] prioritys={ "HIGH", "MEDIUM", "LOW"};
+    private List<get_set> contactList;
+    private mybookingsadapter mAdapter;
+    private RecyclerView recyclerView;
 
     View view;
 
@@ -171,9 +179,14 @@ public class manualfrag1 extends Fragment {
         });
 
 
+
+
         // Inflate the layout for this fragment
         return view;
     }
+
+
+
 
 
     private void inserselecteditem() {
@@ -229,7 +242,7 @@ public class manualfrag1 extends Fragment {
                 Map<String,String> params = new HashMap<String,String>();
 
 
-                String sql = "INSERT INTO `transactions`(`number`, `description`,`user`,`name`,`subject`,`issuetype`,`priority`) VALUES ('"+email.getText().toString()+"','"+descrption.getText().toString()+"','"+sharedpreferences.getString("email",null)+"','"+name.getText().toString()+"','"+subject.getText().toString()+"','"+issuetype.getSelectedItem().toString()+"','"+priority.getSelectedItem().toString()+"') ";
+                String sql = "INSERT INTO `transactions`(`number`, `description`,`user`,`name`,`subject`,`issuetype`,`priority`,`category`) VALUES ('"+email.getText().toString()+"','"+descrption.getText().toString()+"','"+sharedpreferences.getString("email",null)+"','"+name.getText().toString()+"','"+subject.getText().toString()+"','"+issuetype.getSelectedItem().toString()+"','"+priority.getSelectedItem().toString()+"','manual') ";
 
                 params.put("action", "insert_data");
                 params.put("database", getResources().getString(R.string.database));
@@ -242,5 +255,6 @@ public class manualfrag1 extends Fragment {
 
         MyApplication.getInstance().addToRequestQueue(stringRequest);
     }
+
 
 }

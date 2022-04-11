@@ -51,7 +51,7 @@ public class menuactivity extends AppCompatActivity {
         manual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(menuactivity.this,Manualform.class);
+                Intent i=new Intent(menuactivity.this,manualholder.class);
                 startActivity(i);
             }
         });
@@ -60,7 +60,7 @@ public class menuactivity extends AppCompatActivity {
         chatbot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(menuactivity.this,MainActivity.class);
+                Intent i=new Intent(menuactivity.this,chatbotmainfrag.class);
                 startActivity(i);
             }
         });

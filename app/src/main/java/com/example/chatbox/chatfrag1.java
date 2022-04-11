@@ -1,21 +1,22 @@
 package com.example.chatbox;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import android.os.Bundle;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -26,9 +27,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,10 +35,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link chatfrag1#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class chatfrag1 extends Fragment {
 
-    // creating variables for our
-    // widgets in xml file.
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    View view;
+
     private RecyclerView chatsRV;
     private ImageButton sendMsgIB;
     private EditText userMsgEdt;
@@ -58,20 +71,51 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<MessageModal> messageModalArrayList;
     private MessageRVAdapter messageRVAdapter;
 
+    public chatfrag1() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment chatfrag1.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static chatfrag1 newInstance(String param1, String param2) {
+        chatfrag1 fragment = new chatfrag1();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
-        // on below line we are initializing all our views.
-        chatsRV = findViewById(R.id.idRVChats);
-        sendMsgIB = findViewById(R.id.idIBSend);
-        userMsgEdt = findViewById(R.id.idEdtMessage);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        sharedpreferences = getSharedPreferences(MyPREFERENCES,MODE_PRIVATE);
+        view = inflater.inflate(R.layout.fragment_chatfrag1, container, false);
+
+        chatsRV = view.findViewById(R.id.idRVChats);
+        sendMsgIB = view.findViewById(R.id.idIBSend);
+        userMsgEdt = view.findViewById(R.id.idEdtMessage);
+
+        sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES,MODE_PRIVATE);
 
         // below line is to initialize our request queue.
-        mRequestQueue = Volley.newRequestQueue(MainActivity.this);
+        mRequestQueue = Volley.newRequestQueue(getContext());
         mRequestQueue.getCache().clear();
 
         // creating a new array list
@@ -80,13 +124,13 @@ public class MainActivity extends AppCompatActivity {
         input="#";
 
 
-        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
+        FloatingActionButton fab = view.findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(MainActivity.this,Manualform.class);
+                Intent i=new Intent(getContext(),Manualform.class);
                 startActivity(i);
-               }
+            }
         });
 
 
@@ -102,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 // by user is empty or not.
                 if (userMsgEdt.getText().toString().isEmpty()) {
                     // if the edit text is empty display a toast message.
-                    Toast.makeText(MainActivity.this, "Please enter your message..", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Please enter your message..", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(input.equalsIgnoreCase("#")){
@@ -124,12 +168,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // on below line we are initialing our adapter class and passing our array lit to it.
-        messageRVAdapter = new MessageRVAdapter(messageModalArrayList, this);
+        messageRVAdapter = new MessageRVAdapter(messageModalArrayList, getContext());
 
 
-        fetchdetails("hey aco");
+        fetchdetails("hey SHA");
         // below line we are creating a variable for our linear layout manager.
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+
 
         // below line is to set layout
         // manager to our recycler view.
@@ -138,9 +183,10 @@ public class MainActivity extends AppCompatActivity {
         // below line we are setting
         // adapter to our recycler view.
         chatsRV.setAdapter(messageRVAdapter);
-
-
+        // Inflate the layout for this fragment
+        return view;
     }
+
 
     private void sendMessage(String userMsg) {
         // below line is to pass message to our
@@ -148,13 +194,14 @@ public class MainActivity extends AppCompatActivity {
         messageModalArrayList.add(new MessageModal(userMsg, USER_KEY));
         messageRVAdapter.notifyDataSetChanged();
 
+
         // url for our brain
         // make sure to add mshape for uid.
         // make sure to add your url.
 //        String url = "http://api.brainshop.ai/get?bid=160754&key=5q0XwQwrnJb0UsGd&uid=40&msg='"+userMsg+"'" ;
-                 String url="http://192.168.1.101:8080/cvt/chatbot.php";
+        String url="http://192.168.1.101:8080/cvt/chatbot.php";
         // creating a variable for our request queue.
-        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+        RequestQueue queue = Volley.newRequestQueue(getContext());
 
         // on below line we are making a json object request for a get request and passing our url .
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
@@ -165,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
                     // from json response and adding this response to our array list.
                     String botResponse = response.getString("cnt");
                     messageModalArrayList.add(new MessageModal(botResponse, BOT_KEY));
+                    chatsRV.scrollToPosition(messageModalArrayList.size()-1);
 
                     // notifying our adapter as data changed.
                     messageRVAdapter.notifyDataSetChanged();
@@ -183,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
 
                 System.out.println(error);
                 messageModalArrayList.add(new MessageModal("Sorry no response found", BOT_KEY));
-                Toast.makeText(MainActivity.this, "No response from the bot.."+error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "No response from the bot.."+error, Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -205,13 +253,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void fetchdetails(String userMsg) {
-        if(userMsg.equalsIgnoreCase("hey aco")||userMsg.equalsIgnoreCase("what is your name"))
+        if(userMsg.equalsIgnoreCase("hey SHA")||userMsg.equalsIgnoreCase("what is your name"))
         {
 
         }
         else{
             messageModalArrayList.add(new MessageModal(userMsg, USER_KEY));
             messageRVAdapter.notifyDataSetChanged();
+            chatsRV.scrollToPosition(messageModalArrayList.size()-1);
         }
 
 
@@ -235,11 +284,17 @@ public class MainActivity extends AppCompatActivity {
                             }
                             else{
 
-                                register(userMsg, botResponse);
+                              if(botResponse.contains("Hi,")){
+
+                                }
+                              else
+                              {
+                                  register(userMsg, botResponse);
+                              }
                                 messageModalArrayList.add(new MessageModal(botResponse, BOT_KEY));
                             }
 
-
+                            chatsRV.scrollToPosition(messageModalArrayList.size()-1);
                             // notifying our adapter as data changed.
                             messageRVAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
@@ -248,6 +303,7 @@ public class MainActivity extends AppCompatActivity {
                             // handling error response from bot.
                             messageModalArrayList.add(new MessageModal("No response", BOT_KEY));
                             messageRVAdapter.notifyDataSetChanged();
+                            chatsRV.scrollToPosition(messageModalArrayList.size()-1);
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -257,14 +313,14 @@ public class MainActivity extends AppCompatActivity {
 
                 System.out.println(error);
                 messageModalArrayList.add(new MessageModal("Sorry no response found", BOT_KEY));
-                Toast.makeText(MainActivity.this, "No response from the bot.."+error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "No response from the bot.."+error, Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<String,String>();
 
-              params.put("id",userMsg);
+                params.put("id",userMsg);
 
 
 
@@ -276,11 +332,7 @@ public class MainActivity extends AppCompatActivity {
         MyApplication.getInstance().addToRequestQueue(stringRequest);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
+
 
 
     public void register(String question,String answer){
@@ -291,7 +343,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         if (response == null) {
-                            Toast.makeText(getApplicationContext(), "Couldn't fetch the contacts! Pleas try again.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Couldn't fetch the contacts! Pleas try again.", Toast.LENGTH_LONG).show();
                             return;
                         }
                         System.out.println("maxi"+response);
@@ -327,7 +379,7 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 // error in getting json
 
-                Toast.makeText(getApplicationContext(), "check connection " , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "check connection " , Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -335,7 +387,7 @@ public class MainActivity extends AppCompatActivity {
                 Map<String,String> params = new HashMap<String,String>();
 
 
-               String sql= "INSERT INTO `transactions`( `user`,`question`, `answer`) VALUES ('"+sharedpreferences.getString("email",null)+"','"+question+"','"+answer+"')";
+                String sql= "INSERT INTO `transactions`( `user`,`question`, `answer`,`chats`) VALUES ('"+sharedpreferences.getString("email",null)+"','"+question+"','"+answer+"','chats')";
 
                 params.put("action", "get_data");
                 params.put("sql", sql);
@@ -351,6 +403,4 @@ public class MainActivity extends AppCompatActivity {
         MyApplication.getInstance().addToRequestQueue(stringRequest);
 
     }
-
-
 }

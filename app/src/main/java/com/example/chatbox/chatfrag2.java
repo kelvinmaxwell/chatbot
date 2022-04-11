@@ -31,10 +31,10 @@ import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link manualfrag2#newInstance} factory method to
+ * Use the {@link chatfrag2#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class manualfrag2 extends Fragment implements  previousmanualadapter.ContactsAdapterListener {
+public class chatfrag2 extends Fragment implements previousmanualadapter2.ContactsAdapterListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,11 +45,11 @@ public class manualfrag2 extends Fragment implements  previousmanualadapter.Cont
     private String mParam1;
     private String mParam2;
     private List<get_set> contactList;
-    private previousmanualadapter mAdapter;
+    private previousmanualadapter2 mAdapter;
     private RecyclerView recyclerView;
     View view;
 
-    public manualfrag2() {
+    public chatfrag2() {
         // Required empty public constructor
     }
 
@@ -59,11 +59,11 @@ public class manualfrag2 extends Fragment implements  previousmanualadapter.Cont
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment manualfrag2.
+     * @return A new instance of fragment chatfrag2.
      */
     // TODO: Rename and change types and number of parameters
-    public static manualfrag2 newInstance(String param1, String param2) {
-        manualfrag2 fragment = new manualfrag2();
+    public static chatfrag2 newInstance(String param1, String param2) {
+        chatfrag2 fragment = new chatfrag2();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -83,13 +83,12 @@ public class manualfrag2 extends Fragment implements  previousmanualadapter.Cont
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         view = inflater.inflate(R.layout.fragment_manualfrag2, container, false);
 
 
         recyclerView = view.findViewById(R.id.recycler_view);
         contactList = new ArrayList<>();
-        mAdapter = new previousmanualadapter(getContext(), contactList, this);
+        mAdapter = new previousmanualadapter2(getContext(), contactList, this);
 
         // white background notification bar
 
@@ -99,10 +98,8 @@ public class manualfrag2 extends Fragment implements  previousmanualadapter.Cont
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
         fetchContacts();
-        // Inflate the layout for this fragment
         return view;
     }
-
 
 
     private void fetchContacts() {
@@ -155,7 +152,7 @@ public class manualfrag2 extends Fragment implements  previousmanualadapter.Cont
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<String,String>();
 
-                String sql = "SELECT `issuetype`,count(`issuetype`)as `count`,`ratings`,`description`,`solution` FROM `transactions` WHERE `name` !='null' order by `count` DESC limit 10";
+                String sql = "SELECT `question`,`answer` ,count(`question`) as `count` FROM `transactions` WHERE  Length(`answer`) > 100 and  `chats`='chats' group by(`question`) order by `count` DESC limit 10";
 
                 params.put("action", "get_data");
                 params.put("database", getResources().getString(R.string.database));

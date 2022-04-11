@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,7 +26,8 @@ public class previousmanualadapter extends RecyclerView.Adapter<previousmanualad
     private ContactsAdapterListener listener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView servicename, serviceamount,status;
+        public TextView issuetype, description,solution,count;
+        public RatingBar ratings;
 
 
 
@@ -33,10 +35,12 @@ public class previousmanualadapter extends RecyclerView.Adapter<previousmanualad
         public MyViewHolder(View view) {
             super(view);
 
-            servicename = view.findViewById(R.id.servicename);
+            issuetype = view.findViewById(R.id.issuettxt);
 
-            serviceamount=view.findViewById(R.id.serviceamount);
-            status=view.findViewById(R.id.confirmed);
+            description=view.findViewById(R.id.descrptiontxt);
+            solution=view.findViewById(R.id.solutiontxtm);
+            ratings=view.findViewById(R.id.ratingBar2);
+            count=view.findViewById(R.id.count);
 
 
 
@@ -61,7 +65,7 @@ public class previousmanualadapter extends RecyclerView.Adapter<previousmanualad
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.mybookings, parent, false);
+                .inflate(R.layout.previousemanual, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -70,14 +74,19 @@ public class previousmanualadapter extends RecyclerView.Adapter<previousmanualad
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final get_set contact = contactListFiltered.get(position);
-        holder.servicename.setText(""+contact.getdescription()+" ");
-        if(contact.getstatus().equalsIgnoreCase("confirmed")){
-            holder.status.setTextColor(holder.status.getContext().getResources().getColor(R.color.white));
-            holder.status.setBackgroundColor(holder.status.getContext().getResources().getColor(R.color.teal_700));
-        }
-        holder.status.setText(""+contact.getstatus()+" ");
+        holder.issuetype.setText(""+contact.getIssuetype()+" ");
 
-        holder.serviceamount.setText(contact.getticketnumber());
+        holder.description.setText(""+contact.getdescription()+" ");
+        holder.solution.setText(""+contact.getSolution()+" ");
+        try{
+        holder.ratings.setRating(Float.parseFloat(contact.getRatings()));}
+        catch (NullPointerException e)
+        {}
+        holder.count.setText("" + String.valueOf(((int) Float.parseFloat(contact.getCount()))) + " " + "requests");
+
+
+
+
 //        holder.number.setText("OEM NUMBER  "+contact.getNumber());
 //        holder.rating.setRating(contact.getRatings());
 //

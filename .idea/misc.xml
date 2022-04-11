@@ -23,9 +23,21 @@
         <entry key="..\:/Users/abdul/Desktop/APP/chatbox/app/src/main/res/layout/home_toolbar.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/abdul/Desktop/APP/chatbox/app/src/main/res/layout/messagelayout.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/abdul/Desktop/APP/chatbox/app/src/main/res/layout/mybookings.xml" value="0.22826086956521738" />
+        <entry key="app/src/main/res/layout/activity_admintickets.xml" value="0.10833333333333334" />
+        <entry key="app/src/main/res/layout/activity_chatbotmainfrag.xml" value="0.22135416666666666" />
+        <entry key="app/src/main/res/layout/activity_clientansactivity.xml" value="0.22135416666666666" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22135416666666666" />
         <entry key="app/src/main/res/layout/activity_manualform.xml" value="0.1925925925925926" />
         <entry key="app/src/main/res/layout/activity_manualholder.xml" value="0.1925925925925926" />
+        <entry key="app/src/main/res/layout/chatmanuallayout.xml" value="0.22135416666666666" />
+        <entry key="app/src/main/res/layout/chatmanuallayout2.xml" value="0.22135416666666666" />
+        <entry key="app/src/main/res/layout/fragment_chatfrag1.xml" value="0.22135416666666666" />
+        <entry key="app/src/main/res/layout/fragment_chatfrag2.xml" value="0.22135416666666666" />
+        <entry key="app/src/main/res/layout/fragment_chatfrag3.xml" value="0.22135416666666666" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.22135416666666666" />
+        <entry key="app/src/main/res/layout/fragment_first2.xml" value="0.22135416666666666" />
         <entry key="app/src/main/res/layout/fragment_manualfrag1.xml" value="0.1925925925925926" />
+        <entry key="app/src/main/res/layout/fragment_manualfrag2.xml" value="0.10833333333333334" />
         <entry key="app/src/main/res/layout/previousemanual.xml" value="0.10833333333333334" />
       </map>
     </option>

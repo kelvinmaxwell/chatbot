@@ -112,7 +112,7 @@ public class admintickets extends AppCompatActivity implements mybookingsadapter
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String,String> params = new HashMap<String,String>();
 
-                    String sql = "SELECT `ticketnumber` as `ticketnumber`, `number` as `email`, `status`, `description` FROM `transactions` ";
+                    String sql = "SELECT `ticketnumber` as `ticketnumber`, `number` as `email`, `status`, `description` FROM `transactions` where `category`='manual' ";
 
                     params.put("action", "get_data");
                     params.put("database", getResources().getString(R.string.database));

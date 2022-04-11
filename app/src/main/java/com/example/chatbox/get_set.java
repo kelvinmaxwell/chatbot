@@ -2,10 +2,10 @@ package com.example.chatbox;
 
 public class get_set {
 
-        String national_id,date,count,serviceid,ticketnumber;
+        String national_id,date,count,serviceid,ticketnumber,issuetype,question,answer;
         String name,status;
         String farm_id,id2,user,loss;
-        String ratings;
+        String ratings,solution ;
     String quantity,phone_number,description,amount,amount_delivered_kg,time_am_pm,image;
     String id,locationame,rate,totalkgs,milkpayment,treatment,purchase,expenditure,payable,arias;
     String product_name,make,model,year,main_category,sub_category,partmaker,quantity_remaining,number,time;
@@ -19,9 +19,25 @@ public class get_set {
         return ticketnumber;
     }
 
+    public String getQuestion() {
+        return question;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
 
     public String gettime() {
         return time;
+    }
+
+    public String getSolution() {
+        return solution;
+    }
+
+    public String getIssuetype() {
+        return issuetype;
     }
 
     public String getquantity() {
